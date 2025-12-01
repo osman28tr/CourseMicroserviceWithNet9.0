@@ -1,0 +1,18 @@
+﻿using CourseMicroservice.Catalog.API.Features.Categories;
+using CourseMicroservice.Catalog.API.Features.Courses;
+using Microsoft.EntityFrameworkCore;
+using MongoDB.EntityFrameworkCore.Extensions;
+using System.Reflection;
+
+namespace CourseMicroservice.Catalog.API.Repositories
+{
+	public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+	{
+		public DbSet<Course> Courses { get; set; }
+		public DbSet<Category> Categories { get; set; }
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+		}
+	}
+}
