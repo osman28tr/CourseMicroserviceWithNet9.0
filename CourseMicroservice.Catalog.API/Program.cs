@@ -1,5 +1,7 @@
 using CourseMicroservice.Catalog.API.Options;
 using CourseMicroservice.Catalog.API.Extensions;
+using MongoDB.Driver;
+using CourseMicroservice.Catalog.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddMongoOption();
+
+builder.Services.AddDbServiceExt();
 
 var app = builder.Build();
 
