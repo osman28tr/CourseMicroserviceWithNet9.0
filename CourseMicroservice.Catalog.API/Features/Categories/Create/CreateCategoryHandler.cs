@@ -1,4 +1,5 @@
-﻿using CourseMicroservice.Catalog.API.Repositories;
+﻿using CourseMicroservice.Catalog.API.Features.Categories.Rules;
+using CourseMicroservice.Catalog.API.Repositories;
 using CourseMicroservice.Shared.Responses;
 using MassTransit;
 using MediatR;
@@ -7,11 +8,11 @@ using System.Net;
 
 namespace CourseMicroservice.Catalog.API.Features.Categories.Create
 {
-	public class CreateCategoryHandler(AppDbContext context) : IRequestHandler<CreateCategoryCommand, ServiceResponse<CreateCategoryResponse>>
+	public class CreateCategoryHandler(AppDbContext context,ICategoryRule categoryRule) : IRequestHandler<CreateCategoryCommand, ServiceResponse<CreateCategoryResponse>>
 	{
 		public async Task<ServiceResponse<CreateCategoryResponse>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
 		{
-			var existCategory = await context.Categories.AnyAsync(x => x.Name == request.name); 
+			var existCategory = await categoryRule.IsExistCategory(request.name);
 
 			if (existCategory)
 			{
