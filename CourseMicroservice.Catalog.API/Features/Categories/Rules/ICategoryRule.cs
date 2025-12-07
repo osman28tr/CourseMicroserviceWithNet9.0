@@ -2,6 +2,6 @@
 {
 	public interface ICategoryRule
 	{
-		Task<bool> IsExistCategory(string name);
+		Task<bool> IsExistCategory(string name, CancellationToken cancellationToken);
 	}
 }
