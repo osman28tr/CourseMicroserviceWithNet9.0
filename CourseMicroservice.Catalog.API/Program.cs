@@ -1,8 +1,10 @@
 
+using CourseMicroservice.Catalog.API;
 using CourseMicroservice.Catalog.API.Extensions;
 using CourseMicroservice.Catalog.API.Features.Categories;
 using CourseMicroservice.Catalog.API.Options;
 using CourseMicroservice.Catalog.API.Repositories;
+using CourseMicroservice.Shared.Extensions;
 using MongoDB.Driver;
 
 
@@ -18,7 +20,7 @@ builder.Services.AddDbServiceExt();
 var app = builder.Build();
 //Endpoints
 app.AddCategoryEndpointExt();
-
+builder.Services.AddCommonServiceExt(typeof(CatalogAssembly));
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
