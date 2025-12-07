@@ -13,15 +13,15 @@ namespace CourseMicroservice.Catalog.API.Features.Categories.Rules
 		{
 			_context = context;
 		}
-		public async Task<bool> IsExistCategory(string name)
+		public async Task<bool> IsExistCategory(string name, CancellationToken cancellationToken)
 		{
-			var existCategory = await _context.Categories.AnyAsync(x => x.Name == name);
+			var existCategory = await _context.Categories.AnyAsync(x => x.Name == name, cancellationToken);
 
 			if (existCategory)
 			{
-				return false;
+				return true;
 			}
-			return true;
+			return false;
 		}
 	}
 }
