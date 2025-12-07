@@ -16,7 +16,7 @@ namespace CourseMicroservice.Catalog.API.Extensions
 
 			services.AddScoped(sp =>
 			{
-				var mongoClient = sp.GetRequiredService<MongoClient>();
+				var mongoClient = sp.GetRequiredService<IMongoClient>();
 				var options = sp.GetRequiredService<MongoOption>();
 
 				return AppDbContext.Create(mongoClient.GetDatabase(options.DatabaseName));

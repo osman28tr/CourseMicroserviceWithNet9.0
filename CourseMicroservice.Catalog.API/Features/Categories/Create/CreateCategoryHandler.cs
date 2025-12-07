@@ -12,11 +12,11 @@ namespace CourseMicroservice.Catalog.API.Features.Categories.Create
 	{
 		public async Task<ServiceResponse<CreateCategoryResponse>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
 		{
-			var existCategory = await categoryRule.IsExistCategory(request.name);
+			var existCategory = await categoryRule.IsExistCategory(request.name, cancellationToken);
 
 			if (existCategory)
 			{
-				ServiceResponse.Error("Category name already exists", $"The category name `{request.name}` is already exists", HttpStatusCode.BadRequest);
+			   return ServiceResponse<CreateCategoryResponse>.Error("Category name already exists", $"The category name `{request.name}` is already exists", HttpStatusCode.BadRequest);
 			}
 
 			var category = new Category { Id = NewId.NextSequentialGuid(), Name = request.name };
