@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CourseMicroservice.Catalog.API.Features.Categories.Create
 {
-	public static class CreateCategoryEndpoint
+	public static class CreateCategoryCommandEndpoint
 	{
 		public static RouteGroupBuilder CreateCategoryGroupItemEndpoint(this RouteGroupBuilder routeGroupBuilder)
 		{
