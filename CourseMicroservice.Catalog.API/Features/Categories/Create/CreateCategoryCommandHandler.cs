@@ -8,15 +8,15 @@ using System.Net;
 
 namespace CourseMicroservice.Catalog.API.Features.Categories.Create
 {
-	public class CreateCategoryHandler(AppDbContext context,ICategoryRule categoryRule) : IRequestHandler<CreateCategoryCommand, ServiceResponse<CreateCategoryResponse>>
+	public class CreateCategoryCommandHandler(AppDbContext context,ICategoryRule categoryRule) : IRequestHandler<CreateCategoryCommand, ServiceResponse<CreateCategoryCommandResponse>>
 	{
-		public async Task<ServiceResponse<CreateCategoryResponse>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
+		public async Task<ServiceResponse<CreateCategoryCommandResponse>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
 		{
 			var existCategory = await categoryRule.IsExistCategory(request.name, cancellationToken);
 
 			if (existCategory)
 			{
-			   return ServiceResponse<CreateCategoryResponse>.Error("Category name already exists", $"The category name `{request.name}` is already exists", HttpStatusCode.BadRequest);
+			   return ServiceResponse<CreateCategoryCommandResponse>.Error("Category name already exists", $"The category name `{request.name}` is already exists", HttpStatusCode.BadRequest);
 			}
 
 			var category = new Category { Id = NewId.NextSequentialGuid(), Name = request.name };
@@ -25,7 +25,7 @@ namespace CourseMicroservice.Catalog.API.Features.Categories.Create
 
 			await context.SaveChangesAsync();
 
-			return ServiceResponse<CreateCategoryResponse>.SuccessAsCreated(new CreateCategoryResponse(category.Id), "empty");
+			return ServiceResponse<CreateCategoryCommandResponse>.SuccessAsCreated(new CreateCategoryCommandResponse(category.Id), "empty");
 		}
 	}
 }

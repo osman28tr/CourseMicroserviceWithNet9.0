@@ -3,5 +3,5 @@ using MediatR;
 
 namespace CourseMicroservice.Catalog.API.Features.Categories.Create
 {
-	public record class CreateCategoryCommand(string name) : IRequest<ServiceResponse<CreateCategoryResponse>>;
+	public record class CreateCategoryCommand(string name) : IRequest<ServiceResponse<CreateCategoryCommandResponse>>;
 }
