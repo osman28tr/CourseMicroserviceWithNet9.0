@@ -8,3 +8,6 @@ Accept: application/json
 POST {{baseAddress}}/api/categories
 Accept: application/json
 
+###
+GET {{baseAddress}}/api/categories/test
+Accept: application/json
