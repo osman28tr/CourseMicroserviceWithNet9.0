@@ -9,5 +9,15 @@ POST {{baseAddress}}/api/categories
 Accept: application/json
 
 ###
-GET {{baseAddress}}/api/categories/test
+POST {{baseAddress}}/api/courses
 Accept: application/json
+Content-type:application/json
+
+//course create
+{
+  "name": "New course",
+  "description": "new course description",
+  "price": 200,
+  "pictureUrl": "http://example.com/picture.jpg",
+  "categoryId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+}

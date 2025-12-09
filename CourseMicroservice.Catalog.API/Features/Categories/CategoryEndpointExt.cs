@@ -8,7 +8,8 @@ namespace CourseMicroservice.Catalog.API.Features.Categories
 	{
 		public static void AddCategoryEndpointExt(this WebApplication application)
 		{
-			application.MapGroup("api/categories").CreateCategoryGroupItemEndpoint()
+			application.MapGroup("api/categories").WithTags("Categories")
+				.CreateCategoryGroupItemEndpoint()
 				.GetAllCategoryGroupItemEndpoint()
 				.GetByIdCategoryGroupItemEndpoint();
 		}
