@@ -1,4 +1,6 @@
-﻿using CourseMicroservice.Catalog.API.Features.Courses.Create;
+﻿using CourseMicroservice.Catalog.API.Features.Courses.Commands.Create;
+using CourseMicroservice.Catalog.API.Features.Courses.Commands.Update;
+using CourseMicroservice.Catalog.API.Features.Courses.Dtos;
 
 namespace CourseMicroservice.Catalog.API.Features.Courses.Profiles
 {
@@ -8,6 +10,9 @@ namespace CourseMicroservice.Catalog.API.Features.Courses.Profiles
 		{
 			CreateMap<CreateCourseCommand, Course>().ReverseMap()
 				.ForMember(x => x.PictureUrl, opt => opt.MapFrom(x => x.Picture));
+
+			CreateMap<Course, CourseDto>().ReverseMap();
+			CreateMap<Course, UpdateCourseCommand>().ReverseMap();
 		}
 	}
 }

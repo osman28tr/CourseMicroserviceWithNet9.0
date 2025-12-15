@@ -1,7 +1,7 @@
 ﻿using CourseMicroservice.Shared.Filters;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CourseMicroservice.Catalog.API.Features.Courses.Create
+namespace CourseMicroservice.Catalog.API.Features.Courses.Commands.Create
 {
 	public static class CreateCourseEndpoint
 	{

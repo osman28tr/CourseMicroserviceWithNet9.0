@@ -1,7 +1,7 @@
 ﻿using CourseMicroservice.Catalog.API.Features.Courses.Rules;
 using CourseMicroservice.Shared.Responses;
 
-namespace CourseMicroservice.Catalog.API.Features.Courses.Create
+namespace CourseMicroservice.Catalog.API.Features.Courses.Commands.Create
 {
 	public class CreateCourseCommandHandler(AppDbContext context,IMapper mapper,ICourseRule courseRule) : IRequestHandler<CreateCourseCommand, ServiceResponse<Guid>>
 	{

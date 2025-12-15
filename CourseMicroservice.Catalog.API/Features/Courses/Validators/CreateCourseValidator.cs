@@ -1,4 +1,4 @@
-﻿using CourseMicroservice.Catalog.API.Features.Courses.Create;
+﻿using CourseMicroservice.Catalog.API.Features.Courses.Commands.Create;
 
 namespace CourseMicroservice.Catalog.API.Features.Courses.Validators
 {
