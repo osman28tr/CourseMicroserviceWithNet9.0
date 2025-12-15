@@ -4,6 +4,7 @@ using CourseMicroservice.Catalog.API.Features.Courses.Commands.Delete;
 using CourseMicroservice.Catalog.API.Features.Courses.Commands.Update;
 using CourseMicroservice.Catalog.API.Features.Courses.Queries.GetAll;
 using CourseMicroservice.Catalog.API.Features.Courses.Queries.GetById;
+using CourseMicroservice.Catalog.API.Features.Courses.Queries.GetByUserId;
 
 namespace CourseMicroservice.Catalog.API.Features.Courses
 {
