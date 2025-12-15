@@ -7,10 +7,11 @@ using CourseMicroservice.Shared.Filters;
 using CourseMicroservice.Shared.Responses;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using static CourseMicroservice.Shared.Responses.ServiceResponse;
 
 namespace CourseMicroservice.Catalog.API.Features.Categories.GetAll
 {
-	public class GetAllCategoryQuery : IRequest<ServiceResponse<List<CategoryDto>>>;
+	public class GetAllCategoryQuery : IRequestByServiceResponse<List<CategoryDto>>;
 
 	public class GetAllCategoryQueryHandler(AppDbContext context,IMapper mapper) : IRequestHandler<GetAllCategoryQuery, ServiceResponse<List<CategoryDto>>>
 	{
