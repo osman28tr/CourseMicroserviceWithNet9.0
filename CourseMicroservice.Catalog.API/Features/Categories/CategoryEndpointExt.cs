@@ -1,5 +1,6 @@
 ﻿using CourseMicroservice.Catalog.API.Features.Categories.Create;
 using CourseMicroservice.Catalog.API.Features.Categories.GetAll;
+using CourseMicroservice.Catalog.API.Features.Categories.GetById;
 
 namespace CourseMicroservice.Catalog.API.Features.Categories
 {
@@ -7,8 +8,10 @@ namespace CourseMicroservice.Catalog.API.Features.Categories
 	{
 		public static void AddCategoryEndpointExt(this WebApplication application)
 		{
-			application.MapGroup("api/categories").CreateCategoryGroupItemEndpoint()
-				.GetAllCategoryGroupItemEndpoint();
+			application.MapGroup("api/categories").WithTags("Categories")
+				.CreateCategoryGroupItemEndpoint()
+				.GetAllCategoryGroupItemEndpoint()
+				.GetByIdCategoryGroupItemEndpoint();
 		}
 	}
 }

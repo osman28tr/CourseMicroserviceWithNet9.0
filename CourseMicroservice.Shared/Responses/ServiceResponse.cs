@@ -1,4 +1,5 @@
-﻿using Refit;
+﻿using MediatR;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace CourseMicroservice.Shared.Responses
 {
 	public class ServiceResponse
 	{
+
+		public interface IRequestByServiceResponse<T> : IRequest<ServiceResponse<T>>;
+
 		[JsonIgnore] public HttpStatusCode Status { get; set; }
 
 		public ProblemDetails? Fail { get; set; }
