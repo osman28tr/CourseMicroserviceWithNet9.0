@@ -12,14 +12,12 @@ Accept: application/json
 POST {{baseAddress}}/api/courses
 Accept: application/json
 Content-type:application/json
-
-//course create
 {
-  "name": "New course",
-  "description": "new course description",
-  "price": 200,
-  "pictureUrl": "http://example.com/picture.jpg",
-  "categoryId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  "name": "test111",
+  "description": "test2",
+  "price": 10,
+  "pictureUrl": "test3",
+  "categoryId": "08de35ca-d8f7-21b5-b025-aa3a2eeb0000"
 }
 
 ###
@@ -29,6 +27,11 @@ Accept: application/json
 ###
 GET {{baseAddress}}/api/courses/08de375d-c8c7-4ba1-b025-aa3a2eeb0000
 Accept: application/json
+
+###
+GET {{baseAddress}}/api/courses/getallbyuserid/00000000-0000-0000-0000-000000000000
+Accept: application/json
+
 
 ###
 PUT {{baseAddress}}/api/courses
