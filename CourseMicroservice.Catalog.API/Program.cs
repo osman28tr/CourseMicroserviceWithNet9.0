@@ -2,6 +2,7 @@
 using CourseMicroservice.Catalog.API;
 using CourseMicroservice.Catalog.API.Extensions;
 using CourseMicroservice.Catalog.API.Features.Categories;
+using CourseMicroservice.Catalog.API.Features.Courses;
 using CourseMicroservice.Catalog.API.Options;
 using CourseMicroservice.Catalog.API.Repositories;
 using CourseMicroservice.Shared.Extensions;
@@ -17,14 +18,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMongoOption();
 builder.Services.AddDbServiceExt();
-
+builder.Services.AddVersioning();
 builder.Services.AddCatalogServiceRegistration();
 
 builder.Services.AddCommonServiceExt(typeof(CatalogAssembly));
 
 var app = builder.Build();
 //Endpoints
-app.AddCategoryEndpointExt();
+app.AddCategoryEndpointExt(app.AddVersionSetExt());
+app.AddCourseEndpointExt(app.AddVersionSetExt());
 
 
 // Configure the HTTP request pipeline.

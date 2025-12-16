@@ -1,6 +1,59 @@
-@CourseMicroservice.Catalog.API_HostAddress = http://localhost:5098
+@baseAddress = http://localhost:5098
 
-GET {{CourseMicroservice.Catalog.API_HostAddress}}/weatherforecast/
+GET {{baseAddress}}/api/v1/Categories
 Accept: application/json
 
 ###
+
+POST {{baseAddress}}/api/v1/categories
+Accept: application/json
+
+###
+POST {{baseAddress}}/api/v1/courses
+Accept: application/json
+Content-type:application/json
+{
+  "name": "test111",
+  "description": "test2",
+  "price": 10,
+  "pictureUrl": "test3",
+  "categoryId": "08de35ca-d8f7-21b5-b025-aa3a2eeb0000"
+}
+
+###
+GET {{baseAddress}}/api/v1/courses
+Accept: application/json
+
+###
+GET {{baseAddress}}/api/v1/courses/08de375d-c8c7-4ba1-b025-aa3a2eeb0000
+Accept: application/json
+
+###
+GET {{baseAddress}}/api/v1/courses/getallbyuserid/00000000-0000-0000-0000-000000000000
+Accept: application/json
+
+
+###
+PUT {{baseAddress}}/api/v1/courses
+Accept: application/json
+Content-type:application/json
+//course update
+{
+  "id": "08de375d-c8c7-4ba1-b025-aa3a2eeb0000",
+  "name": "Updated course name",
+  "description": "Updated course description",
+  "price": 250,
+  "picture": "http://example.com/updatedpicture.jpg",
+  "categoryId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "userId" : "00000000-0000-0000-0000-000000000000", 
+  "feature" : {
+    "duration": 10,
+    "rating": 8,
+    "EducatorFullName": "Osman Tonbul"
+  }
+}
+
+###
+DELETE {{baseAddress}}/api/v1/courses/08de375d-c8c7-4ba1-b025-aa3a2eeb0000
+Accept: application/json
+
