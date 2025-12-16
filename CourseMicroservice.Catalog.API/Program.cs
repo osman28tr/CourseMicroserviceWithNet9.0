@@ -18,15 +18,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMongoOption();
 builder.Services.AddDbServiceExt();
-
+builder.Services.AddVersioning();
 builder.Services.AddCatalogServiceRegistration();
 
 builder.Services.AddCommonServiceExt(typeof(CatalogAssembly));
 
 var app = builder.Build();
 //Endpoints
-app.AddCategoryEndpointExt();
-app.AddCourseEndpointExt();
+app.AddCategoryEndpointExt(app.AddVersionSetExt());
+app.AddCourseEndpointExt(app.AddVersionSetExt());
 
 
 // Configure the HTTP request pipeline.

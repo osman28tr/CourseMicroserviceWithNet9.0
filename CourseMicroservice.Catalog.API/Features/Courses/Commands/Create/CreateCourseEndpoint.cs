@@ -10,6 +10,7 @@ namespace CourseMicroservice.Catalog.API.Features.Courses.Commands.Create
 			routeGroupBuilder.MapPost("/",
 				async (IMediator mediator, CreateCourseCommand createCourseCommand) =>
 					(await mediator.Send(createCourseCommand)).ToGenericResult())
+				.MapToApiVersion(1,0)
 				.Produces<Guid>(StatusCodes.Status201Created)
 				.Produces(StatusCodes.Status404NotFound)
 				.Produces(StatusCodes.Status400BadRequest)
