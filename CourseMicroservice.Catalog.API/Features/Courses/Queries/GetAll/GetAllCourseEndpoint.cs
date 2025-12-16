@@ -22,7 +22,7 @@ namespace CourseMicroservice.Catalog.API.Features.Courses.Queries.GetAll
 		{
 			routeGroupBuilder.MapGet("/",
 				async (IMediator mediator) =>
-					(await mediator.Send(new GetAllCourseQuery())).ToGenericResult());
+					(await mediator.Send(new GetAllCourseQuery())).ToGenericResult()).MapToApiVersion(1,0);
 			return routeGroupBuilder;
 		}
 	}
