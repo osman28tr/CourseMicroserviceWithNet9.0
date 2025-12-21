@@ -27,7 +27,7 @@ namespace CourseMicroservice.Catalog.API.Features.Courses.Queries.GetByUserId
 		{
 			 routeGroupBuilder.MapGet("/GetByUserId/{userId : guid}",
 				async (IMediator mediator, Guid userId) =>
-					(await mediator.Send(new GetCourseByUserIdQuery { UserId = userId })).ToGenericResult());
+					(await mediator.Send(new GetCourseByUserIdQuery { UserId = userId })).ToGenericResult()).MapToApiVersion(1,0);
 			return routeGroupBuilder;
 		}
 	}

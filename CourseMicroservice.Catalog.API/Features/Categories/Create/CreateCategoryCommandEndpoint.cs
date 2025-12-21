@@ -11,7 +11,8 @@ namespace CourseMicroservice.Catalog.API.Features.Categories.Create
 		{
 			routeGroupBuilder.MapPost("/",
 				async (CreateCategoryCommand command, IMediator mediator) =>
-					(await mediator.Send(command)).ToGenericResult())			
+					(await mediator.Send(command)).ToGenericResult())		
+				.MapToApiVersion(1,0)
 			.AddEndpointFilter<ValidationFilter<CreateCategoryCommand>>();
 			return routeGroupBuilder;
 		}

@@ -30,7 +30,7 @@ namespace CourseMicroservice.Catalog.API.Features.Courses.Commands.Delete
 				{
 					var deleteCourseCommand = new DeleteCourseCommand { Id = id };
 					return (await mediator.Send(deleteCourseCommand)).ToGenericResult();
-				});
+				}).MapToApiVersion(1,0);
 			return routeGroupBuilder;
 		}
 	}

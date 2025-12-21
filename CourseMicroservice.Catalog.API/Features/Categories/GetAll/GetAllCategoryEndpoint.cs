@@ -29,9 +29,18 @@ namespace CourseMicroservice.Catalog.API.Features.Categories.GetAll
 	{
 		public static RouteGroupBuilder GetAllCategoryGroupItemEndpoint(this RouteGroupBuilder routeGroupBuilder)
 		{
+			//v1
 			routeGroupBuilder.MapGet("/",
 				async (IMediator mediator) =>
-					(await mediator.Send(new GetAllCategoryQuery())).ToGenericResult());
+					(await mediator.Send(new GetAllCategoryQuery())).ToGenericResult())
+				.MapToApiVersion(1, 0);
+
+			//v1.2
+			routeGroupBuilder.MapGet("/",
+				async (IMediator mediator) =>
+					(await mediator.Send(new GetAllCategoryQuery())).ToGenericResult())
+				.MapToApiVersion(1, 2);
+
 			return routeGroupBuilder;
 		}
 	}

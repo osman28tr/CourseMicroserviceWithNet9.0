@@ -8,7 +8,7 @@
 				async (IMediator mediator, UpdateCourseCommand updateCourseCommand) =>
 				{
 					return (await mediator.Send(updateCourseCommand)).ToGenericResult();
-				});
+				}).MapToApiVersion(1,0);
 			return routeGroupBuilder;
 		}
 	}
