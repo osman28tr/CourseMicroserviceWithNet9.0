@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CourseMicroservice\CourseMicroservice.Shared\CourseMicroservice.Shared.csproj" />
+    <ProjectReference Include="..\CourseMicroservice.Shared\CourseMicroservice.Shared.csproj" />
   </ItemGroup>
 
 </Project>
