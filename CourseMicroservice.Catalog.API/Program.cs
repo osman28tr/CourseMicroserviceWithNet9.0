@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerServices();
 builder.Services.AddMongoOption();
 builder.Services.AddDbServiceExt();
 builder.Services.AddVersioning();
@@ -33,8 +33,7 @@ app.AddCourseEndpointExt(app.AddVersionSetExt());
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-	app.UseSwagger();
-	app.UseSwaggerUI();
+	app.AddSwaggerExtension();
 }
 
 
