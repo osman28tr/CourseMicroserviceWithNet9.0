@@ -1,6 +1,18 @@
-﻿namespace CourseMicroservice.Basket.API.Dtos
+﻿using System.Text.Json.Serialization;
+
+namespace CourseMicroservice.Basket.API.Dtos
 {
-	public record BasketDto(Guid userId,List<BasketItemDto> basketItemDto)
+	public record BasketDto
 	{
+		[JsonIgnore]public Guid UserId { get; init; }
+		public List<BasketItemDto> BasketItems { get; set; } = new();
+		public BasketDto(Guid userId, List<BasketItemDto> basketItems)
+		{
+			UserId = userId;
+			BasketItems = basketItems;
+		}
+		public BasketDto()
+		{			
+		}
 	}
 }
