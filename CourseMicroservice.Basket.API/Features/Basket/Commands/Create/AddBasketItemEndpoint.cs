@@ -2,7 +2,7 @@
 using CourseMicroservice.Shared.Extensions;
 using MediatR;
 
-namespace CourseMicroservice.Basket.API.Features.Basket.Commands
+namespace CourseMicroservice.Basket.API.Features.Basket.Commands.Create
 {
 	public static class AddBasketItemEndpoint
 	{

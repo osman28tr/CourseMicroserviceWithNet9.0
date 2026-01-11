@@ -16,6 +16,7 @@ namespace CourseMicroservice.Shared.Responses
 	{
 
 		public interface IRequestByServiceResponse<T> : IRequest<ServiceResponse<T>>;
+		public interface IRequestByServiceResponse : IRequest<ServiceResponse>;
 
 		[JsonIgnore] public HttpStatusCode Status { get; set; }
 

@@ -1,18 +1,19 @@
 ﻿using CourseMicroservice.Basket.API.Consts;
 using CourseMicroservice.Basket.API.Dtos;
 using CourseMicroservice.Shared.Responses;
+using CourseMicroservice.Shared.Services;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 
-namespace CourseMicroservice.Basket.API.Features.Basket.Commands
+namespace CourseMicroservice.Basket.API.Features.Basket.Commands.Create
 {
-	public class AddBasketItemCommandHandler(IDistributedCache cache) : IRequestHandler<AddBasketItemCommand, ServiceResponse<AddBasketItemCommand>>
+	public class AddBasketItemCommandHandler(IDistributedCache cache,IIdentityService identityService) : IRequestHandler<AddBasketItemCommand, ServiceResponse<AddBasketItemCommand>>
 	{
 		public async Task<ServiceResponse<AddBasketItemCommand>> Handle(AddBasketItemCommand request, CancellationToken cancellationToken)
 		{
 			//basket : userId
-			Guid userId = Guid.NewGuid();
+			Guid userId = identityService.UserId;
 			var cacheKey = string.Format(BasketConst.BasketCacheKey, userId);
 
 			var hasBasket = await cache.GetStringAsync(cacheKey, cancellationToken);
@@ -22,13 +23,13 @@ namespace CourseMicroservice.Basket.API.Features.Basket.Commands
 			if(!string.IsNullOrEmpty(hasBasket))
 			{
 				basketDto = JsonSerializer.Deserialize<BasketDto>(hasBasket);
-				var existingBasketItem = basketDto?.basketItemDto.FirstOrDefault(bi => bi.CourseId == request.CourseId);
+				var existingBasketItem = basketDto?.BasketItems.FirstOrDefault(bi => bi.CourseId == request.CourseId);
 
 				if (existingBasketItem != null)				
-					basketDto?.basketItemDto.Remove(existingBasketItem);					
+					basketDto?.BasketItems.Remove(existingBasketItem);					
 				
 				var basketItemDto = new BasketItemDto(request.CourseId, request.CourseName, request.CoursePrice, request.CourseImageUrl, null);
-				basketDto?.basketItemDto.Add(basketItemDto);
+				basketDto?.BasketItems.Add(basketItemDto);
 			}
 			else
 			{
