@@ -1,4 +1,4 @@
-<h1>Kurs Proje Uygulaması</h1>
+<h1>Mikroservis ile Mini Kurs Proje Uygulaması</h1>
 
 <p align="justify">
 Proje, .NET 9 ile geliştirilmiş, kullanıcıların kurs alıp satmasını sağlayan, kullanıcılara hitap edecek kapsamlı özellikler barındırmayan ancak mimari ve teknik açıdan çeşitli ve güncel teknolojileri içerisinde barındıran mini bir kurs proje uygulamasıdır. Projede mikroservis mimarisi uygulanmış, servislerde ise genel olarak vertical slice arhitecture yaklaşımı yer almaktadır.
