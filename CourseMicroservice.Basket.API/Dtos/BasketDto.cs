@@ -8,6 +8,7 @@ namespace CourseMicroservice.Basket.API.Dtos
 		public List<BasketItemDto> BasketItems { get; set; } = new();
 		public float? DiscountRate { get; set; }
 		public string? Coupon { get; set; }
+		public decimal TotalPrice { get; set; }
 		public BasketDto(Guid userId, List<BasketItemDto> basketItems)
 		{
 			UserId = userId;

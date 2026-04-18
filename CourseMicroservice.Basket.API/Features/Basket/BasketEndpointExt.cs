@@ -3,6 +3,7 @@ using CourseMicroservice.Basket.API.Features.Basket.ApplyDiscountCoupon;
 using CourseMicroservice.Basket.API.Features.Basket.Commands.Create;
 using CourseMicroservice.Basket.API.Features.Basket.Commands.Delete;
 using CourseMicroservice.Basket.API.Features.Basket.Queries.GetBasket;
+using CourseMicroservice.Basket.API.Features.Basket.RemoveDiscountCoupon;
 
 namespace CourseMicroservice.Basket.API.Features.Basket
 {
@@ -15,7 +16,8 @@ namespace CourseMicroservice.Basket.API.Features.Basket
 				.AddBasketItemGroupItemEndpoint()
 				.DeleteBasketItemGroupItemEndpoint()
 				.GetBasketGroupItemEndpoint()
-				.ApplyDiscountCouponGroupItemEndpoint();
+				.ApplyDiscountCouponGroupItemEndpoint()
+				.RemoveDiscountCouponGroupItemEndpoint();
 		}
 	}
 }
