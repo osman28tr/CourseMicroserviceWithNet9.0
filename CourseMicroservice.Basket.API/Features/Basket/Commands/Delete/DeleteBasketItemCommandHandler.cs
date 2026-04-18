@@ -20,7 +20,7 @@ namespace CourseMicroservice.Basket.API.Features.Basket.Commands.Delete
 			{
 				ServiceResponse.ErrorAsNotFound();
 			}
-			var basket = JsonSerializer.Deserialize<BasketDto>(basketData);
+			var basket = JsonSerializer.Deserialize<Data.Basket>(basketData);
 			var itemToRemove = basket.BasketItems.FirstOrDefault(i => i.CourseId == request.courseId);
 			if (itemToRemove == null)
 			{

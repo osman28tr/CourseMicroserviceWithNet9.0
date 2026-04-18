@@ -17,6 +17,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
 
 builder.Services.AddVersioning();
 
+
 var app = builder.Build();
 
 //Endpoints
