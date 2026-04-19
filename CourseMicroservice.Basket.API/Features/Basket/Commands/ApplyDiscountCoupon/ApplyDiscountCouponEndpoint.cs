@@ -3,7 +3,7 @@ using CourseMicroservice.Shared.Extensions;
 using CourseMicroservice.Shared.Filters;
 using MediatR;
 
-namespace CourseMicroservice.Basket.API.Features.Basket.ApplyDiscountCoupon
+namespace CourseMicroservice.Basket.API.Features.Basket.Commands.ApplyDiscountCoupon
 {
 	public static class ApplyDiscountCouponEndpoint
 	{

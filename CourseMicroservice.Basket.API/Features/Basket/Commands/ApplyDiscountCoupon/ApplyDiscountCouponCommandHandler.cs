@@ -1,6 +1,7 @@
 ﻿using CourseMicroservice.Basket.API.Consts;
 using CourseMicroservice.Basket.API.Data;
 using CourseMicroservice.Basket.API.Dtos;
+using CourseMicroservice.Basket.API.Features.Basket.Helpers;
 using CourseMicroservice.Shared.Responses;
 using CourseMicroservice.Shared.Services;
 using MediatR;
@@ -8,19 +9,18 @@ using Microsoft.Extensions.Caching.Distributed;
 using System.Net;
 using System.Text.Json;
 
-namespace CourseMicroservice.Basket.API.Features.Basket.ApplyDiscountCoupon
+namespace CourseMicroservice.Basket.API.Features.Basket.Commands.ApplyDiscountCoupon
 {
-	public class ApplyDiscountCouponCommandHandler(IIdentityService identityService, IDistributedCache distributedCache) :
+	public class ApplyDiscountCouponCommandHandler(IIdentityService identityService,BasketHelper basketHelper) :
 		IRequestHandler<ApplyDiscountCouponCommand, ServiceResponse>
 	{
 		public async Task<ServiceResponse> Handle(ApplyDiscountCouponCommand request, CancellationToken cancellationToken)
 		{
 			Guid userId = identityService.UserId;
-			var cacheKey = string.Format(BasketConst.BasketCacheKey, userId);
 
-			var hasBasket = await distributedCache.GetStringAsync(cacheKey, cancellationToken);
+			var hasBasket = await basketHelper.GetBasketFromCacheAsync(cancellationToken);
 
-			if(string.IsNullOrEmpty(hasBasket))
+			if (string.IsNullOrEmpty(hasBasket))
 				ServiceResponse<BasketDto>.Error("Basket not found", HttpStatusCode.NotFound);
 
 			var basket = JsonSerializer.Deserialize<Data.Basket>(hasBasket);
@@ -32,9 +32,7 @@ namespace CourseMicroservice.Basket.API.Features.Basket.ApplyDiscountCoupon
 
 			basket.ApplyCoupon(request.Coupon, request.Rate);
 
-			var basketJsonString = JsonSerializer.Serialize(basket);
-
-			await distributedCache.SetStringAsync(cacheKey, basketJsonString, cancellationToken);
+			await basketHelper.SetBasketCacheAsync(basket, cancellationToken);
 
 			return ServiceResponse.SuccessAsNoContent();
 		}

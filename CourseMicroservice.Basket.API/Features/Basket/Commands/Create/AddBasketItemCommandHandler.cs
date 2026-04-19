@@ -1,6 +1,7 @@
 ﻿using CourseMicroservice.Basket.API.Consts;
 using CourseMicroservice.Basket.API.Data;
 using CourseMicroservice.Basket.API.Dtos;
+using CourseMicroservice.Basket.API.Features.Basket.Helpers;
 using CourseMicroservice.Shared.Responses;
 using CourseMicroservice.Shared.Services;
 using MediatR;
@@ -9,15 +10,14 @@ using System.Text.Json;
 
 namespace CourseMicroservice.Basket.API.Features.Basket.Commands.Create
 {
-	public class AddBasketItemCommandHandler(IDistributedCache cache,IIdentityService identityService) : IRequestHandler<AddBasketItemCommand, ServiceResponse<AddBasketItemCommand>>
+	public class AddBasketItemCommandHandler(IDistributedCache cache,IIdentityService identityService,BasketHelper basketHelper) : IRequestHandler<AddBasketItemCommand, ServiceResponse<AddBasketItemCommand>>
 	{
 		public async Task<ServiceResponse<AddBasketItemCommand>> Handle(AddBasketItemCommand request, CancellationToken cancellationToken)
 		{
 			//basket : userId
 			Guid userId = identityService.UserId;
-			var cacheKey = string.Format(BasketConst.BasketCacheKey, userId);
 
-			var hasBasket = await cache.GetStringAsync(cacheKey, cancellationToken);
+			var hasBasket = await basketHelper.GetBasketFromCacheAsync(cancellationToken);
 
 			Data.Basket? basket;
 
@@ -38,9 +38,7 @@ namespace CourseMicroservice.Basket.API.Features.Basket.Commands.Create
 				basket = new Data.Basket(userId, [basketItem]);
 			}
 
-			var basketJsonString = JsonSerializer.Serialize(basket);
-
-			await cache.SetStringAsync(cacheKey, basketJsonString, cancellationToken);
+			await basketHelper.SetBasketCacheAsync(basket, cancellationToken);
 
 			return ServiceResponse<AddBasketItemCommand>.SuccessAsCreated(request, "");
 		}

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace CourseMicroservice.Basket.API.Features.Basket.ApplyDiscountCoupon
+namespace CourseMicroservice.Basket.API.Features.Basket.Commands.ApplyDiscountCoupon
 {
 	public class ApplyDiscountCouponCommandValidator : AbstractValidator<ApplyDiscountCouponCommand>
 	{

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CourseMicroservice.Basket.API.Consts;
 using CourseMicroservice.Basket.API.Dtos;
+using CourseMicroservice.Basket.API.Features.Basket.Helpers;
 using CourseMicroservice.Shared.Responses;
 using CourseMicroservice.Shared.Services;
 using MediatR;
@@ -10,15 +11,13 @@ using System.Text.Json;
 
 namespace CourseMicroservice.Basket.API.Features.Basket.Queries.GetBasket
 {
-	public class GetBasketQueryHandler(IDistributedCache distributedCache,IIdentityService identityService,IMapper mapper) : IRequestHandler<GetBasketQuery, ServiceResponse<BasketDto>>
+	public class GetBasketQueryHandler(IDistributedCache distributedCache,IIdentityService identityService,IMapper mapper,BasketHelper basketHelper) : IRequestHandler<GetBasketQuery, ServiceResponse<BasketDto>>
 	{
 		public async Task<ServiceResponse<BasketDto>> Handle(GetBasketQuery request, CancellationToken cancellationToken)
 		{
 			//basket : userId
 			Guid userId = identityService.UserId;
-			var cacheKey = string.Format(BasketConst.BasketCacheKey, userId);
-
-			var hasBasket = await distributedCache.GetStringAsync(cacheKey, cancellationToken);
+			var hasBasket = await basketHelper.GetBasketFromCacheAsync(cancellationToken);
 
 			if (string.IsNullOrEmpty(hasBasket))
 			{

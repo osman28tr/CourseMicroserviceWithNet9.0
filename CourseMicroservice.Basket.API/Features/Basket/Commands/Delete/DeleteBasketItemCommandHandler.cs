@@ -1,5 +1,6 @@
 ﻿using CourseMicroservice.Basket.API.Consts;
 using CourseMicroservice.Basket.API.Dtos;
+using CourseMicroservice.Basket.API.Features.Basket.Helpers;
 using CourseMicroservice.Shared.Responses;
 using CourseMicroservice.Shared.Services;
 using MediatR;
@@ -9,13 +10,12 @@ using static CourseMicroservice.Shared.Responses.ServiceResponse;
 
 namespace CourseMicroservice.Basket.API.Features.Basket.Commands.Delete
 {
-	public class DeleteBasketItemCommandHandler(IDistributedCache cache,IIdentityService identityService) : IRequestHandler<DeleteBasketItemCommand, ServiceResponse>
+	public class DeleteBasketItemCommandHandler(IDistributedCache cache,IIdentityService identityService,BasketHelper basketHelper) : IRequestHandler<DeleteBasketItemCommand, ServiceResponse>
 	{
 		public async Task<ServiceResponse> Handle(DeleteBasketItemCommand request, CancellationToken cancellationToken)
 		{
 			var userId = identityService.UserId;
-			var cacheKey = string.Format(BasketConst.BasketCacheKey, userId);
-			var basketData = await cache.GetStringAsync(cacheKey, cancellationToken);
+			var basketData = await basketHelper.GetBasketFromCacheAsync(cancellationToken);
 			if (string.IsNullOrEmpty(basketData))
 			{
 				ServiceResponse.ErrorAsNotFound();
@@ -27,8 +27,7 @@ namespace CourseMicroservice.Basket.API.Features.Basket.Commands.Delete
 				ServiceResponse.ErrorAsNotFound();
 			}
 			basket.BasketItems.Remove(itemToRemove);
-			var updatedBasketData = JsonSerializer.Serialize(basket);
-			await cache.SetStringAsync(cacheKey, updatedBasketData, cancellationToken);
+			await basketHelper.SetBasketCacheAsync(basket, cancellationToken);
 			return ServiceResponse.SuccessAsNoContent();
 		}	 
 	}

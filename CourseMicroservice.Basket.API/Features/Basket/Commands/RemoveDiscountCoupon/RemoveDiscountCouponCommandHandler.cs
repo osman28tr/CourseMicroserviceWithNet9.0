@@ -1,6 +1,7 @@
 ﻿using CourseMicroservice.Basket.API.Consts;
 using CourseMicroservice.Basket.API.Dtos;
 using CourseMicroservice.Basket.API.Features.Basket.ApplyDiscountCoupon;
+using CourseMicroservice.Basket.API.Features.Basket.Helpers;
 using CourseMicroservice.Shared.Extensions;
 using CourseMicroservice.Shared.Filters;
 using CourseMicroservice.Shared.Responses;
@@ -11,17 +12,15 @@ using System.Net;
 using System.Text.Json;
 using static CourseMicroservice.Shared.Responses.ServiceResponse;
 
-namespace CourseMicroservice.Basket.API.Features.Basket.RemoveDiscountCoupon
+namespace CourseMicroservice.Basket.API.Features.Basket.Commands.RemoveDiscountCoupon
 {
 	public record RemoveDiscountCouponCommand : IRequestByServiceResponse;
-	public class RemoveDiscountCouponCommandHandler(IIdentityService identityService,IDistributedCache distributedCache) : IRequestHandler<RemoveDiscountCouponCommand, ServiceResponse>
+	public class RemoveDiscountCouponCommandHandler(IIdentityService identityService,IDistributedCache distributedCache,BasketHelper basketHelper) : IRequestHandler<RemoveDiscountCouponCommand, ServiceResponse>
 	{
 		public async Task<ServiceResponse> Handle(RemoveDiscountCouponCommand request, CancellationToken cancellationToken)
 		{
 			Guid userId = identityService.UserId;
-			var cacheKey = string.Format(BasketConst.BasketCacheKey, userId);
-
-			var hasBasket = await distributedCache.GetStringAsync(cacheKey, cancellationToken);
+			var hasBasket = await basketHelper.GetBasketFromCacheAsync(cancellationToken);
 
 			if (string.IsNullOrEmpty(hasBasket))
 				ServiceResponse<BasketDto>.Error("Basket not found", HttpStatusCode.NotFound);
@@ -30,9 +29,7 @@ namespace CourseMicroservice.Basket.API.Features.Basket.RemoveDiscountCoupon
 
 			basket!.RemoveCoupon();
 
-			var basketAsJsonString = JsonSerializer.Serialize(basket);
-
-			await distributedCache.SetStringAsync(cacheKey, basketAsJsonString);
+			await basketHelper.SetBasketCacheAsync(basket, cancellationToken);
 
 			return ServiceResponse.SuccessAsNoContent();
 		}
