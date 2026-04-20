@@ -1,5 +1,6 @@
 using CourseMicroservice.Basket.API;
 using CourseMicroservice.Basket.API.Features.Basket;
+using CourseMicroservice.Basket.API.Features.Basket.Helpers;
 using CourseMicroservice.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerServices();
+builder.Services.AddScoped<BasketHelper>();
 builder.Services.AddCommonServiceExt(typeof(BasketAssembly));
 
 builder.Services.AddStackExchangeRedisCache(options =>
@@ -16,6 +18,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 
 builder.Services.AddVersioning();
+
 
 var app = builder.Build();
 
