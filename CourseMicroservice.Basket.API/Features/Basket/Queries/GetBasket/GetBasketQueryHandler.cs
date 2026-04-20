@@ -1,0 +1,32 @@
+﻿using AutoMapper;
+using CourseMicroservice.Basket.API.Consts;
+using CourseMicroservice.Basket.API.Dtos;
+using CourseMicroservice.Basket.API.Features.Basket.Helpers;
+using CourseMicroservice.Shared.Responses;
+using CourseMicroservice.Shared.Services;
+using MediatR;
+using Microsoft.Extensions.Caching.Distributed;
+using System.Net;
+using System.Text.Json;
+
+namespace CourseMicroservice.Basket.API.Features.Basket.Queries.GetBasket
+{
+	public class GetBasketQueryHandler(IDistributedCache distributedCache,IIdentityService identityService,IMapper mapper,BasketHelper basketHelper) : IRequestHandler<GetBasketQuery, ServiceResponse<BasketDto>>
+	{
+		public async Task<ServiceResponse<BasketDto>> Handle(GetBasketQuery request, CancellationToken cancellationToken)
+		{
+			//basket : userId
+			Guid userId = identityService.UserId;
+			var hasBasket = await basketHelper.GetBasketFromCacheAsync(cancellationToken);
+
+			if (string.IsNullOrEmpty(hasBasket))
+			{
+				ServiceResponse<BasketDto>.Error("Basket not found", HttpStatusCode.NotFound);
+			}
+
+			var basket = JsonSerializer.Deserialize<Data.Basket>(hasBasket);
+			var basketDto = mapper.Map<BasketDto>(basket);
+			return ServiceResponse<BasketDto>.SuccessAsOk(basketDto);
+		}
+	}
+}

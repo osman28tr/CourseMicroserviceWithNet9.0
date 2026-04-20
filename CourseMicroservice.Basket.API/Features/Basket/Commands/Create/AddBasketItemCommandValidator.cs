@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace CourseMicroservice.Basket.API.Features.Basket.Commands
+namespace CourseMicroservice.Basket.API.Features.Basket.Commands.Create
 {
 	public class AddBasketItemCommandValidator : AbstractValidator<AddBasketItemCommand>
 	{
