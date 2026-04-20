@@ -1,6 +1,6 @@
 ﻿using CourseMicroservice.Basket.API.Consts;
 using CourseMicroservice.Basket.API.Dtos;
-using CourseMicroservice.Basket.API.Features.Basket.ApplyDiscountCoupon;
+using CourseMicroservice.Basket.API.Features.Basket.Commands.ApplyDiscountCoupon;
 using CourseMicroservice.Basket.API.Features.Basket.Helpers;
 using CourseMicroservice.Shared.Extensions;
 using CourseMicroservice.Shared.Filters;
