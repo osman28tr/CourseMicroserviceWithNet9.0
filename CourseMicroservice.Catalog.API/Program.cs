@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerServices();
 builder.Services.AddMongoOption();
 builder.Services.AddDbServiceExt();
 builder.Services.AddVersioning();
@@ -33,14 +33,9 @@ app.AddCourseEndpointExt(app.AddVersionSetExt());
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-	app.UseSwagger();
-	app.UseSwaggerUI();
+	app.AddSwaggerExtension();
 }
 
 
 app.Run();
 
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
