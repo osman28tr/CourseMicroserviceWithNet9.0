@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning.Builder;
 using CourseMicroservice.Discount.API.Features.Discount.Commands.Create;
+using CourseMicroservice.Discount.API.Features.Discount.Queries.GetDiscountByCode;
 
 namespace CourseMicroservice.Discount.API.Features.Discount
 {
@@ -9,7 +10,8 @@ namespace CourseMicroservice.Discount.API.Features.Discount
 		{
 			application.MapGroup("api/v{version:apiVersion}/discounts").WithTags("Discounts")
 				.WithApiVersionSet(apiVersionSet)
-				.CreateDiscountGroupItemEndpoint();
+				.CreateDiscountGroupItemEndpoint()
+				.GetDiscountByCodeGroupItemEndpoint();
 		}
 	}
 }
