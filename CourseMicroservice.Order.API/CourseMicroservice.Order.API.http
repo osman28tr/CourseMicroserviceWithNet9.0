@@ -1,0 +1,6 @@
+@CourseMicroservice.Order.API_HostAddress = http://localhost:5182
+
+GET {{CourseMicroservice.Order.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
