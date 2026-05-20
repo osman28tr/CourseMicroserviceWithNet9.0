@@ -8,6 +8,6 @@ namespace CourseMicroservice.Order.Domain.Entities
 {
 	public class BaseEntity<TEntityId>
 	{
-		public TEntityId EntityId { get; set; } = default!;
+		public TEntityId Id { get; set; } = default!;
 	}
 }
