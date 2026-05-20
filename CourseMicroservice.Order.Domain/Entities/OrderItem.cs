@@ -9,9 +9,9 @@ namespace CourseMicroservice.Order.Domain.Entities
 	public class OrderItem : BaseEntity<int>
 	{
 		public Guid ProductId { get; set; }
+		public Guid OrderId { get; set; }
 		public string ProductName { get; set; } = default!;
-		public string UnitPrice { get; set; }
-
-		public void SetItem
+		public decimal UnitPrice { get; set; }
+		public Order Order { get; set; }
 	}
 }
