@@ -1,4 +1,6 @@
+using CourseMicroservice.Order.Application.Abstract;
 using CourseMicroservice.Order.Persistance;
+using CourseMicroservice.Order.Persistance.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +13,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
 });
-
+builder.Services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
